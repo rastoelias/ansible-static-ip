@@ -1,0 +1,13 @@
+---
+
+- name: Find the netplan configuration file for the network interface
+  find:
+    paths: /etc/netplan
+    patterns: "01-netcfg.yaml,50-cloud-init.yaml"
+  register: netplan_file
+
+- name: Replace the netplan configuration file
+  template:
+    src: "{{ netplan_file.files[0].path | regex_replace('/etc/netplan/','') }}.j2"
+    dest: '{{ netplan_file.files[0].path }}'
+  notify: Apply netplan configuration
