@@ -1,5 +1,5 @@
 [server]
-SERVER-IP-ADDRESS
+SERVER-IP-ADDRESS ansible_user=USER ansible_port=PORT
 
 [server:vars]
 ansible_python_interpreter=/usr/bin/python3

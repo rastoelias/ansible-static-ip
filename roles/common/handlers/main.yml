@@ -2,3 +2,8 @@
 
 - name: Apply netplan configuration
   command: netplan apply
+
+- name: Restart dhcp
+  service:
+    name: dhcpcd
+    state: restarted

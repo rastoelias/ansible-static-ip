@@ -5,9 +5,25 @@
     paths: /etc/netplan
     patterns: "01-netcfg.yaml,50-cloud-init.yaml"
   register: netplan_file
+  when: ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_version'] == "18.04"
 
 - name: Replace the netplan configuration file
   template:
     src: "{{ netplan_file.files[0].path | regex_replace('/etc/netplan/','') }}.j2"
     dest: '{{ netplan_file.files[0].path }}'
   notify: Apply netplan configuration
+  when: ansible_facts['distribution'] == "Ubuntu" and ansible_facts['distribution_version'] == "18.04"
+
+- name: Configure static IP in /etc/dhcpcd.conf
+  lineinfile:
+    dest: /etc/dhcpcd.conf
+    regexp: '{{ item.regexp }}'
+    line: '{{ item.line }}'
+    state: present
+  with_items:
+    - { regexp: "^interface eth[0-9]", line: "interface {{ ansible_default_ipv4.interface }}" }
+    - { regexp: "^static ip_address", line: "static ip_address={{ NETWORK_ADDRESSES }}" }
+    - { regexp: "^static routers", line: "static routers={{ NETWORK_GATEWAY }}" }
+    - { regexp: "^static domain_name_servers", line: "static domain_name_servers={{ NETWORK_NAMESERVER_1 }} {{ NETWORK_NAMESERVER_2 }}" }
+  notify: Restart dhcp
+  when: ansible_facts['distribution_release'] == "stretch" and ansible_facts['distribution_version'] == "9.4"

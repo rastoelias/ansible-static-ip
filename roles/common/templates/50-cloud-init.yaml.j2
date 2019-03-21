@@ -10,5 +10,5 @@ network:
       addresses: [{{ NETWORK_ADDRESSES }}]
       gateway4: {{ NETWORK_GATEWAY }}
       nameservers:
-        addresses: [{{ NETWORK_NAMESERVERS }}]
+        addresses: [{{ NETWORK_NAMESERVER_1 }},{{ NETWORK_NAMESERVER_2 }}]
   version: 2
