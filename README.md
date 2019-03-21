@@ -10,7 +10,7 @@ An Ansible playbook to assign static IP address for Ubuntu server 18.04 VM.
 ## Usage
 1. Clone this repository.
     ```
-    git clone https://github.com/rastoelias/ubuntu-static-ip.git ubuntu-static-ip
+    git clone https://github.com/rastoelias/ansible-static-ip.git ubuntu-static-ip
     ```
 2. Copy the `hosts.example` file to the `hosts` file.
     ```
