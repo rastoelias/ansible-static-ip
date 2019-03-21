@@ -40,4 +40,8 @@ An Ansible playbook to assign static IP address for Ubuntu server 18.04 VM.
     ```
     ansible-playbook provision.yml -b
     ```
+    or
+    ```
+    ansible-playbook provision.yml -b -K
+    ```
 > NOTE (Ubuntu 18.04): Playbook will fail because after the `sudo netplan apply` command your SSH connection will drop
