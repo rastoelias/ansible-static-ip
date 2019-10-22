@@ -1,6 +1,6 @@
 # Assigning static IP
 An Ansible playbook to assign static IP address on remote server.
-> Tested on: Ubuntu server 18.04, Debian stretch 9.4
+> Tested on: Ubuntu server 18.04, Raspbian stretch 9.4, Raspbian buster 10.1
 
 ## Local machine requirements
 * SSH Keys
